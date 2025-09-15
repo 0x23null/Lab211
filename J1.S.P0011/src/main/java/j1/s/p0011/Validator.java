@@ -3,47 +3,83 @@ package j1.s.p0011;
 import java.util.Scanner;
 
 public class Validator {
-    private final static Scanner scanner = new Scanner(System.in);
 
-    /**
-     * Yêu cầu người dùng nhập một số nguyên trong một khoảng cho trước.
-     * @param message Lời nhắn hiển thị.
-     * @param min     Giá trị nhỏ nhất.
-     * @param max     Giá trị lớn nhất.
-     * @return Số nguyên hợp lệ.
-     */
-    public static int getIntInRange(String message, int min, int max) {
-        while (true) {
-            System.out.print(message);
-            String input = scanner.nextLine().trim();
-            try {
-                int choice = Integer.parseInt(input);
-                if (choice >= min && choice <= max) {
-                    return choice;
-                } else {
-                    System.err.println("Choice must be in range [" + min + ", " + max + "].");
-                }
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid input. Please enter an integer.");
-            }
-        }
-    }
+    Scanner sc = new Scanner(System.in);
 
-    /**
-     * Yêu cầu người dùng nhập một giá trị và kiểm tra nó dựa trên một mẫu regex.
-     * @param message Lời nhắn hiển thị.
-     * @param regex   Mẫu regex để kiểm tra.
-     * @return Chuỗi giá trị hợp lệ.
-     */
-    public static String getInputValue(String message, String regex) {
-        while (true) {
-            System.out.print(message);
-            String input = scanner.nextLine().trim();
-            if (input.matches(regex)) {
-                return input;
+    int getBase(String mess, int min, int max, int baseIn) {
+        int choice;
+        int base = -1;
+        String input;
+
+        do {
+            System.out.print(mess);
+            input = sc.nextLine();
+            if (input.isEmpty()) {
+                System.out.println("Choice could not be empty");
+                continue;
             } else {
-                System.err.println("Invalid input value for this base.");
+                try {
+                    choice = Integer.parseInt(input);
+                    if (choice >= min && choice <= max) {
+                        switch (choice) {
+                            case 1:
+                                base = 2;
+                                break;
+                            case 2:
+                                base = 10;
+                                break;
+                            case 3:
+                                base = 16;
+                                break;
+                            case 4:
+                                System.exit(0);
+                        }
+                        if (baseIn == base) {
+                            System.out.println("Base output could not same base input");
+                            continue;
+                        } else {
+                            return base;
+                        }
+                    } else {
+                        System.out.println("Choice must be in range " + min + " to " + max);
+                        continue;
+                    }
+                } catch (NumberFormatException ex) {
+                    System.out.println("Choice must be Integer");
+                }
             }
-        }
+        } while (true);
     }
+
+    String getInput(String mess, int baseInput) {
+        String input;
+        String regexBase = "";
+        switch (baseInput) {
+            case 2:
+                regexBase = "^[0-1]+$";
+                break;
+            case 10:
+                regexBase = "^[0-9]+$";
+                break;
+            case 16:
+                regexBase = "^[a-fA-F0-9]+$";
+                break;
+        }
+        do {
+            System.out.print(mess);
+            input = sc.nextLine();
+            if (input.isEmpty()) {
+                System.out.println("Input value could not be empty");
+                continue;
+            } else {
+                if (input.matches(regexBase)) {
+                    return input.toUpperCase();
+                } else {
+                    System.out.println("Input is wrong format of base " + baseInput);
+                    continue;
+                }
+            }
+        } while (true);
+    }
+
 }

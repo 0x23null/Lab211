@@ -1,3 +1,4 @@
+// File: src/Manager.java
 package j1.s.p0050;
 
 import java.util.ArrayList;
@@ -5,80 +6,69 @@ import java.util.List;
 
 public class Manager {
 
-    public List<Float> calculateEquation(float a, float b) {
-        List<Float> res = new ArrayList<>();
-        if (a == 0f) {
-            if (b == 0f) {
-                return res;
-            } else {
-                return null;
-            }
-        }
-        res.add(-b / a);
-        return res;
-    }
-
-    public List<Float> calculateQuadraticEquation(float a, float b, float c) {
-        if (a == 0f) {
-            return calculateEquation(b, c);
-        }
-
-        float delta = b * b - 4f * a * c;
-        if (delta < 0f) {
-            return null;
-        }
-        if (delta == 0f) {
-            List<Float> res = new ArrayList<>();
-            res.add(-b / (2f * a));
-            return res;
-        }
-        double sqrt = Math.sqrt(delta);
-        float x1 = (float) ((-b - sqrt) / (2f * a));
-        float x2 = (float) ((-b + sqrt) / (2f * a));
-        List<Float> res = new ArrayList<>();
-        if (x1 <= x2) {
-            res.add(x1);
-            res.add(x2);
-        } else {
-            res.add(x2);
-            res.add(x1);
-        }
-        return res;
-    }
-
     public static boolean isIntegerLike(float v) {
         if (!Float.isFinite(v)) {
             return false;
         }
-        long r = Math.round(v);
-        return Math.abs(v - r) < 1e-6;
+        return Math.abs(v - Math.round(v)) < 1e-6;
     }
 
-    public static boolean isEven(float v) {
-        if (!isIntegerLike(v)) {
-            return false;
+    public List<Float> calculateEquation(float a, float b) {
+        List<Float> solutions = new ArrayList<>();
+        if (a == 0) {
+            if (b == 0) {
+                return solutions; // an empty list
+            }
+            return null;
         }
-        long iv = Math.round(v);
-        return iv % 2 == 0;
+        solutions.add(-b / a);
+        return solutions;
     }
 
-    public static boolean isOdd(float v) {
-        if (!isIntegerLike(v)) {
-            return false;
+    public List<Float> calculateQuadraticEquation(float a, float b, float c) {
+        if (a == 0) {
+            return calculateEquation(b, c);
         }
-        long iv = Math.round(v);
-        return iv % 2 != 0;
+
+        float delta = b * b - 4 * a * c;
+
+        if (delta < 0) {
+            return null;
+        } else if (delta == 0) {
+            List<Float> solutions = new ArrayList<>();
+            solutions.add(-b / (2 * a));
+            return solutions;
+        } else {
+            List<Float> solutions = new ArrayList<>();
+            float sqrtDelta = (float) Math.sqrt(delta);
+            float x1 = (-b + sqrtDelta) / (2 * a);
+            float x2 = (-b - sqrtDelta) / (2 * a);
+            
+            if (x1 > x2) {
+                solutions.add(x2);
+                solutions.add(x1);
+            } else {
+                solutions.add(x1);
+                solutions.add(x2);
+            }
+            return solutions;
+        }
+    }
+    
+    public static boolean isEven(float n) {
+        if (!isIntegerLike(n)) return false;
+        return Math.round(n) % 2 == 0;
     }
 
-    public static boolean isPerfectSquare(float v) {
-        if (!isIntegerLike(v)) {
-            return false;
-        }
-        long iv = Math.round(v);
-        if (iv < 0) {
-            return false;
-        }
-        long s = (long) Math.sqrt(iv);
-        return s * s == iv;
+    public static boolean isOdd(float n) {
+        if (!isIntegerLike(n)) return false;
+        return Math.round(n) % 2 != 0;
+    }
+
+    public static boolean isPerfectSquare(float n) {
+        if (!isIntegerLike(n) || n < 0) return false;
+        long roundedN = Math.round(n);
+        long sqrt = (long) Math.sqrt(roundedN);
+        return sqrt * sqrt == roundedN;
     }
 }

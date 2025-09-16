@@ -1,34 +1,27 @@
+// File: src/Display.java
 package j1.s.p0050;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Display {
-    private final Scanner sc;
-    private final Manager manager;
-
-    public Display() {
-        this.sc = new Scanner(System.in);
-        this.manager = new Manager();
-    }
+    private final Manager manager = new Manager();
 
     public void run() {
         while (true) {
             showMenu();
-            int opt = promptOption();
-            switch (opt) {
+            int option = Input.getOption();
+            switch (option) {
                 case 1:
-                    handleLinear();
+                    handleLinearEquation();
                     break;
                 case 2:
-                    handleQuadratic();
+                    handleQuadraticEquation();
                     break;
                 case 3:
-                    System.out.println("Exitting");
+                    System.out.println("Exiting program.");
                     return;
                 default:
-                    System.out.println("Invalid option");
+                    System.out.println("Invalid option. Please select 1, 2, or 3.");
             }
         }
     }
@@ -38,116 +31,73 @@ public class Display {
         System.out.println("1. Calculate Superlative Equation");
         System.out.println("2. Calculate Quadratic Equation");
         System.out.println("3. Exit");
-        System.out.print("Please choice one option: ");
     }
 
-    private int promptOption() {
-        String s = sc.nextLine().trim();
-        try {
-            return Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return -1;
+    private void handleLinearEquation() {
+        System.out.println("----- Calculate Superlative Equation -----");
+        float a = Input.getFloat("Enter A: ");
+        float b = Input.getFloat("Enter B: ");
+        
+        List<Float> solutions = manager.calculateEquation(a, b);
+        
+        printSolution(solutions);
+        classifyNumbers(a, b);
+    }
+    
+    private void handleQuadraticEquation() {
+        System.out.println("----- Calculate Quadratic Equation -----");
+        float a = Input.getFloat("Enter A: ");
+        float b = Input.getFloat("Enter B: ");
+        float c = Input.getFloat("Enter C: ");
+
+        List<Float> solutions = manager.calculateQuadraticEquation(a, b, c);
+        
+        printSolution(solutions);
+        classifyNumbers(a, b, c);
+    }
+
+    private void printSolution(List<Float> solutions) {
+        if (solutions == null) {
+            System.out.println("Solution: No solution.");
+        } else if (solutions.isEmpty()) {
+            System.out.println("Solution: Infinitely many solutions.");
+        } else if (solutions.size() == 1) {
+            System.out.printf("Solution: x = %.3f\n", solutions.get(0));
+        } else {
+            System.out.printf("Solution: x1 = %.3f and x2 = %.3f\n", solutions.get(0), solutions.get(1));
         }
     }
 
-    private float promptFloat(String label) {
-        while (true) {
-            System.out.print(label);
-            String s = sc.nextLine().trim();
-            try {
-                return Float.parseFloat(s);
-            } catch (NumberFormatException e) {
-                System.out.println("Please input number");
+    private void classifyNumbers(float... numbers) {
+        StringBuilder oddNums = new StringBuilder("Odd Number(s): ");
+        StringBuilder evenNums = new StringBuilder("Even Number(s): ");
+        StringBuilder perfectSquares = new StringBuilder("Perfect Square Number(s): ");
+
+        for (float num : numbers) {
+            if (Manager.isOdd(num)) {
+                oddNums.append(String.format("%.1f, ", num));
+            }
+            if (Manager.isEven(num)) {
+                evenNums.append(String.format("%.1f, ", num));
+            }
+            if (Manager.isPerfectSquare(num)) {
+                perfectSquares.append(String.format("%.1f, ", num));
             }
         }
-    }
 
-    private void handleLinear() {
-        System.out.println("----- Calculate Equation -----");
-        float a = promptFloat("Enter A: ");
-        float b = promptFloat("Enter B: ");
-
-        List<Float> solution = manager.calculateEquation(a, b);
-        printLinearSolution(solution);
-
-        List<Float> coeffs = new ArrayList<>();
-        coeffs.add(a); coeffs.add(b);
-        printClassification(coeffs);
-        System.out.println(); // dòng trống
-    }
-
-    private void handleQuadratic() {
-        System.out.println("----- Calculate Quadratic Equation -----");
-        float a = promptFloat("Enter A: ");
-        float b = promptFloat("Enter B: ");
-        float c = promptFloat("Enter C: ");
-
-        List<Float> solution = manager.calculateQuadraticEquation(a, b, c);
-        printQuadraticSolution(solution);
-
-        List<Float> coeffs = new ArrayList<>();
-        coeffs.add(a); coeffs.add(b); coeffs.add(c);
-        printClassification(coeffs);
-        System.out.println(); // dòng trống
-    }
-
-    private void printLinearSolution(List<Float> sol) {
-        if (sol == null) {
-            System.out.println("Solution: No solution");
-        } else if (sol.isEmpty()) {
-            System.out.println("Solution: Infinitely many solutions");
-        } else {
-            System.out.printf("Solution: x = %s%n", fmt(sol.get(0)));
+        // Remove trailing ", " if there are numbers
+        if (oddNums.length() > 18) {
+            oddNums.setLength(oddNums.length() - 2);
         }
-    }
-
-    private void printQuadraticSolution(List<Float> sol) {
-        if (sol == null) {
-            System.out.println("Solution: No solution");
-        } else if (sol.isEmpty()) {
-            System.out.println("Solution: Infinitely many solutions");
-        } else if (sol.size() == 1) {
-            System.out.printf("Solution: x1 = %s and x2 = %s%n",
-                    fmt(sol.get(0)), fmt(sol.get(0)));
-        } else {
-            System.out.printf("Solution: x1 = %s and x2 = %s%n",
-                    fmt(sol.get(0)), fmt(sol.get(1)));
+        if (evenNums.length() > 17) {
+            evenNums.setLength(evenNums.length() - 2);
         }
-    }
-
-    private void printClassification(List<Float> coeffs) {
-        StringBuilder odd = new StringBuilder();
-        StringBuilder even = new StringBuilder();
-        StringBuilder square = new StringBuilder();
-
-        for (Float v : coeffs) {
-            if (Manager.isOdd(v))   odd.append(fmt(v)).append(", ");
-            if (Manager.isEven(v))  even.append(fmt(v)).append(", ");
-            if (Manager.isPerfectSquare(v)) square.append(fmt(v)).append(", ");
+        if (perfectSquares.length() > 28) {
+            perfectSquares.setLength(perfectSquares.length() - 2);
         }
 
-        // Bám sát format mẫu đề
-        if (odd.length() > 0) {
-            System.out.println("Odd Number(s):" + odd);
-        } else {
-            System.out.println("Odd Number(s):");
-        }
-        if (even.length() > 0) {
-            System.out.println("Number is Even:" + even);
-        } else {
-            System.out.println("Number is Even:");
-        }
-        if (square.length() > 0) {
-            System.out.println("Number is Perfect Square:" + square);
-        } else {
-            System.out.println("Number is Perfect Square:");
-        }
-    }
-
-    private String fmt(float v) {
-        if (Manager.isIntegerLike(v)) {
-            return String.format("%.1f", v);
-        }
-        return Float.toString(v);
+        System.out.println(oddNums);
+        System.out.println(evenNums);
+        System.out.println(perfectSquares);
     }
 }

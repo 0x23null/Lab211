@@ -57,7 +57,7 @@ class Converter {
                 result = valueByConvert.toString();
                 break;
             case 16:
-                HashMap<String, String> BinToHex = new HashMap<String, String>();
+                HashMap<String, String> BinToHex = new HashMap<>();
                 BinToHex.put("0000", "0");
                 BinToHex.put("0001", "1");
                 BinToHex.put("0010", "2");

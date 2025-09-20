@@ -37,7 +37,7 @@ public class Validator {
     }
 
     public static boolean isValidOperation(String input) {
-        return input.matches("[+\\-*/^]");
+        return input.matches("[+\\-*/^=]");
     }
 
     public static String getOperation(String msg) {

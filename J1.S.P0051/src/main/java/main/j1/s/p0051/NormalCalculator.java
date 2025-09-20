@@ -5,16 +5,17 @@ import java.util.Scanner;
 public class NormalCalculator {
 
     Scanner sc = new Scanner(System.in);
-    //Validator validator = new Validator();
 
     public double run() {
         double memory = 0;
         double num = 0;
         String operation;
 
+        memory = Validator.getNum("Enter number: ");
         do {
-            memory = Validator.getNum("Enter number: ");
             operation = Validator.getOperation("Enter operation: ");
+            if (operation.equalsIgnoreCase("=")) break;
+            
             num = Validator.getNum("Enter number: ");
             switch (operation) {
                 case "+":
@@ -30,11 +31,16 @@ public class NormalCalculator {
                     System.out.println("Memory: " + memory);
                     break;
                 case "/":
+                    if (num == 0) {
+                        System.out.println("Cannot divided by zero.");
+                        continue;
+                    }
+                    memory /= num;
                     System.out.println("Memory: " + memory);
                     break;
             }
 
-        } while (operation != "=");
+        } while (true);
         System.out.println("Result is: " + memory);
         return 0;
     }

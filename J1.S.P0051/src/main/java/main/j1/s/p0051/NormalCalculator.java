@@ -14,8 +14,10 @@ public class NormalCalculator {
         memory = Validator.getNum("Enter number: ");
         do {
             operation = Validator.getOperation("Enter operation: ");
-            if (operation.equalsIgnoreCase("=")) break;
-            
+            if (operation.equalsIgnoreCase("=")) {
+                break;
+            }
+
             num = Validator.getNum("Enter number: ");
             switch (operation) {
                 case "+":
@@ -36,6 +38,10 @@ public class NormalCalculator {
                         continue;
                     }
                     memory /= num;
+                    System.out.println("Memory: " + memory);
+                    break;
+                case "^":
+                    memory = Math.pow(memory, num);
                     System.out.println("Memory: " + memory);
                     break;
             }

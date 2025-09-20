@@ -3,8 +3,8 @@ package main.j1.s.p0051;
 public class BMICalculator {
 
     public void run() {
-        double weight = Validator.getNumBMI("Enter weight(kg): ", "BMI is digit");
-        double height = Validator.getNumBMI("Enter height(cm): ", "BMI is digit");
+        double weight = Validator.getNumBMI("Enter weight(kg): ");
+        double height = Validator.getNumBMI("Enter height(cm): ");
         double result = weight / Math.pow(height/100, 2);
         
         

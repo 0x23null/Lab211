@@ -19,7 +19,7 @@ public class Validator {
         }
     }
 
-    public static double getNumBMI(String msg, String errMsg) {
+    public static double getNumBMI(String msg) {
         double num;
         while (true) {
             System.out.print(msg);
@@ -31,7 +31,7 @@ public class Validator {
                 }
                 return num;
             } catch (NumberFormatException e) {
-                System.out.println(errMsg);
+                System.out.println("BMI is digit");
             }
         }
     }

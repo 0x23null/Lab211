@@ -1,4 +1,3 @@
-// File: src/Display.java
 package j1.s.p0050;
 
 import java.util.List;
@@ -85,7 +84,6 @@ public class Display {
             }
         }
 
-        // Remove trailing ", " if there are numbers
         if (oddNums.length() > 18) {
             oddNums.setLength(oddNums.length() - 2);
         }

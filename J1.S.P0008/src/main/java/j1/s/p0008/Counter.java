@@ -12,6 +12,7 @@ public class Counter {
     public void analyze(String content) {
         StringTokenizer tokenizer = new StringTokenizer(content);
         while (tokenizer.hasMoreTokens()) {
+            //
             String word = tokenizer.nextToken();
             wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
         }

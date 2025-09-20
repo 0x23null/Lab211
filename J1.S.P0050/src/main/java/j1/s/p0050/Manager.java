@@ -1,4 +1,3 @@
-// File: src/Manager.java
 package j1.s.p0050;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class Manager {
         List<Float> solutions = new ArrayList<>();
         if (a == 0) {
             if (b == 0) {
-                return solutions; // an empty list
+                return solutions;
             }
             return null;
         }

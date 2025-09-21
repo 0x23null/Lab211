@@ -40,15 +40,15 @@ public class Validator {
         return input.matches("[+\\-*/^=]");
     }
 
-    public static String getOperation(String msg) {
+    public static Operator getOperation(String msg) {
         while (true) {
             System.out.print(msg);
-            String operation = sc.nextLine();
-            if (!isValidOperation(operation)) {
+            String operationStr = sc.nextLine();
+            if (!isValidOperation(operationStr)) {
                 System.out.println("Invalid operator. Please try again.");
                 continue;
             }
-            return operation;
+            return Operator.fromString(operationStr);
         }
     }
 }

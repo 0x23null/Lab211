@@ -7,13 +7,11 @@ public class Display {
         System.out.println("1. Normal Calculator");
         System.out.println("2. BMI Calculator");
         System.out.println("3. Exit");
-        Validator validator = new Validator();
-        Double opt = validator.getNum("Please enter your choice: ");
+        Double opt = Validator.getNum("Please enter your choice: ");
         return opt.intValue();
     }
 
     public void run() {
-
         int opt = 0;
         while (opt != 3) {
             opt = displayMenu();

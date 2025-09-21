@@ -1,53 +1,44 @@
 package main.j1.s.p0051;
 
-import java.util.Scanner;
-
 public class NormalCalculator {
 
-    Scanner sc = new Scanner(System.in);
+    public double calculate(double a, Operator operator, double b) {
+        switch (operator) {
+            case ADD:
+                return a + b;
+            case SUBTRACT:
+                return a - b;
+            case MULTIPLY:
+                return a * b;
+            case DIVIDE:
+                if (b == 0) {
+                    System.out.println("Cannot divided by zero.");
+                    return Double.NaN;
+                }
+                return a / b;
+            case POWER:
+                return Math.pow(a, b);
+            default:
+                return 0;
+        }
+    }
 
-    public double run() {
+    public void run() {
         double memory = 0;
         double num = 0;
-        String operation;
+        Operator operation;
 
         memory = Validator.getNum("Enter number: ");
         do {
             operation = Validator.getOperation("Enter operation: ");
-            if (operation.equalsIgnoreCase("=")) {
-                break;
-            }
-
+            if (operation == Operator.EQUAL) break;
+            
             num = Validator.getNum("Enter number: ");
-            switch (operation) {
-                case "+":
-                    memory += num;
-                    System.out.println("Memory: " + memory);
-                    break;
-                case "-":
-                    memory -= num;
-                    System.out.println("Memory: " + memory);
-                    break;
-                case "*":
-                    memory *= num;
-                    System.out.println("Memory: " + memory);
-                    break;
-                case "/":
-                    if (num == 0) {
-                        System.out.println("Cannot divided by zero.");
-                        continue;
-                    }
-                    memory /= num;
-                    System.out.println("Memory: " + memory);
-                    break;
-                case "^":
-                    memory = Math.pow(memory, num);
-                    System.out.println("Memory: " + memory);
-                    break;
+            memory = calculate(memory, operation, num);
+            if (!Double.isNaN(memory)) {
+                System.out.println("Memory: " + memory);
             }
-
         } while (true);
         System.out.println("Result is: " + memory);
-        return 0;
     }
 }

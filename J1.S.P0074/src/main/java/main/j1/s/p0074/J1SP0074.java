@@ -1,5 +1,3 @@
-
-
 package main.j1.s.p0074;
 
 /**

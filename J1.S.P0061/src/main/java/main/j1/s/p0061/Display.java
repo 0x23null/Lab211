@@ -15,9 +15,18 @@ public class Display {
         double rectangleWidth = getNum("Please input side width of Rectangle: ");
         double rectangleLength = getNum("Please input length of Rectangle: ");
         double circleRadius = getNum("Please input radius of Circle: ");
-        double sideA = getNum("Please input side A of Triangle: ");
-        double sideB = getNum("Please input side B of Triangle: ");
-        double sideC = getNum("Please input side C of Triangle: ");
+
+        double sideA, sideB, sideC;
+        while (true) {
+            sideA = getNum("Please input side A of Triangle: ");
+            sideB = getNum("Please input side B of Triangle: ");
+            sideC = getNum("Please input side C of Triangle: ");
+            if (Triangle.isValidTriangle(sideA, sideB, sideC)) {
+                break;
+            } else {
+                System.out.println("Invalid triangle sides. Please enter again.");
+            }
+        }
 
         Rectangle rectangle = new Rectangle(rectangleWidth, rectangleLength);
         Circle circle = new Circle(circleRadius);
@@ -49,10 +58,6 @@ public class Display {
                 System.out.println("Please enter a valid number");
             }
         }
-    }
-
-    public void showResult() {
-
     }
 
     public Display() {

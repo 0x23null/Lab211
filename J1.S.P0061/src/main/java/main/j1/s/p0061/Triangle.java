@@ -7,9 +7,16 @@ public class Triangle extends Shape {
     private double sideC;
     
     public Triangle(double sideA, double sideB, double sideC) {
+        if (!isValidTriangle(sideA, sideB, sideC)) {
+            throw new IllegalArgumentException("Invalid triangle sides.");
+        }
         this.sideA = sideA;
         this.sideB = sideB;
         this.sideC = sideC;
+    }
+    
+    public static boolean isValidTriangle(double a, double b, double c) {
+        return (a + b > c) && (a + c > b) && (b + c > a);
     }
     
     @Override

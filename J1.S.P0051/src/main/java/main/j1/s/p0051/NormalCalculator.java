@@ -29,16 +29,15 @@ public class NormalCalculator {
         Operator operation;
 
         memory = Validator.getNum("Enter number: ");
-        do {
+        while (true) {
             operation = Validator.getOperation("Enter operation: ");
-            if (operation == Operator.EQUAL) break;
-            
+            if (operation == Operator.EQUAL) {
+                break;
+            }
             num = Validator.getNum("Enter number: ");
             memory = calculate(memory, operation, num);
-            if (!Double.isNaN(memory)) {
-                System.out.println("Memory: " + memory);
-            }
-        } while (true);
+            System.out.println("Memory: " + memory);
+        }
         System.out.println("Result is: " + memory);
     }
 }

@@ -1,7 +1,5 @@
 package main.j1.s.p0074;
 
-import java.util.Scanner;
-
 public class Matrix {
     private int rows;
     private int cols;
@@ -69,7 +67,7 @@ public class Matrix {
     void inputMatrix() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                data[i][j] = Validator.getNum("Enter matrix: ");
+                data[i][j] = Validator.getNum("Enter matrix[" + i + "][" + j + "]: ");
             }
         }
     }

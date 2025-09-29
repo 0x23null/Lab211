@@ -23,24 +23,22 @@ public class BubbleSort {
             }
         }
     }
-    
+
     private int n;
     private int[] arr;
-    
-    public BubbleSort(int n){
+
+    public BubbleSort(int n) {
         this.n = n;
         this.arr = new int[n];
     }
-    
-    
-    
+
     public void displayArray() {
         for (int i : arr) {
             System.out.print(i + " ");
         }
         System.out.println();
     }
-    
+
     public void randomizeArray() {
         Random rand = new Random();
         for (int i = 0; i < n; i++) {

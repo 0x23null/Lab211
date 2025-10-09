@@ -1,4 +1,4 @@
-package main.j1.s.p0010;
+package main.j1.s.p0006;
 
 import java.util.Scanner;
 

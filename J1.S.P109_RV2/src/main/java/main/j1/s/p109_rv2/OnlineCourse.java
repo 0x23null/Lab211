@@ -1,6 +1,7 @@
 package main.j1.s.p109_rv2;
 
 public class OnlineCourse extends Course {
+
     private String platform;
     private String instructors;
     private String note;
@@ -34,6 +35,31 @@ public class OnlineCourse extends Course {
 
     public void setNote(String note) {
         this.note = note == null ? "" : note.trim();
+    }
+
+    @Override
+    public void inputAll() {
+        super.inputAll();
+        while (true) {
+            String p = Validator.getStringInput("Platform: ");
+            if (p.isEmpty()) {
+                System.out.println("Data input is  invalid");
+                continue;
+            }
+            setPlatform(p);
+            break;
+        }
+        String ins = Validator.getStringInput("Instructors: ");
+        setInstructors(ins);
+        while (true) {
+            String s = Validator.getStringInput("Note: ");
+            if (s.isEmpty()) {
+                System.out.println("Data input is  invalid");
+                continue;
+            }
+            setNote(s);
+            break;
+        }
     }
 
     @Override

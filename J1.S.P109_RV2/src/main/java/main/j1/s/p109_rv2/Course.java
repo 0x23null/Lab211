@@ -1,6 +1,12 @@
 package main.j1.s.p109_rv2;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Course {
+
+    protected static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("d/M/yyyy");
+
     private String courseId;
     private String courseName;
     private int credits;
@@ -35,15 +41,52 @@ public class Course {
         this.credits = credits;
     }
 
-    // Basic info line for list printing
+    public void inputAll() {
+        while (true) {
+            String id = Validator.getStringInput("Course ID: ");
+            if (id.isEmpty()) {
+                System.out.println("Data input is  invalid");
+                continue;
+            }
+            setCourseId(id);
+            break;
+        }
+
+        while (true) {
+            String name = Validator.getStringInput("Course name: ");
+            if (name.isEmpty()) {
+                System.out.println("Data input is  invalid");
+                continue;
+            }
+            setCourseName(name);
+            break;
+        }
+
+        while (true) {
+            String s = Validator.getStringInput("Credits: ");
+            try {
+                int v = Integer.parseInt(s);
+                if (v > 0) {
+                    setCredits(v);
+                    break;
+                }
+            } catch (NumberFormatException ignore) {
+            }
+            System.out.println("Data input is  invalid");
+        }
+    }
+
     public String basicInfo() {
         return String.format("%s-%s-%d", getCourseId(), getCourseName(), getCredits());
     }
 
-    // Detailed view for searching/updating
     public void printDetail() {
         System.out.println("Course ID: " + getCourseId());
         System.out.println("Course name: " + getCourseName());
         System.out.println("Credits: " + getCredits());
+    }
+
+    public static String fmt(LocalDate d) {
+        return d == null ? "" : d.format(DMY);
     }
 }

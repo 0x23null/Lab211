@@ -66,11 +66,11 @@ public class CourseManagement {
                 while (true) {
                     oc.inputAll();
                     if (idExists(oc.getCourseId())) {
-                        System.out.println("Data input is  invalid, ID must be unique");
+                        System.out.println("Data input is invalid, ID must be unique");
                         continue;
                     }
                     if (nameExists(oc.getCourseName())) {
-                        System.out.println("Data input is  invalid");
+                        System.out.println("Data input is invalid");
                         continue;
                     }
                     courses.add(oc);
@@ -116,7 +116,7 @@ public class CourseManagement {
             if (!idExists(id) || c.getCourseId().equalsIgnoreCase(id)) {
                 c.setCourseId(id);
             } else {
-                System.out.println("Data input is  invalid, ID must be unique");
+                System.out.println("Data input is invalid, ID must be unique");
             }
         }
 
@@ -175,11 +175,11 @@ public class CourseManagement {
                     java.time.LocalDate ne = java.time.LocalDate.parse(e, Course.DMY);
                     of.setEnd(ne);
                 } catch (Exception ex) {
-                    System.out.println("Data input is  invalid");
+                    System.out.println("Data input is invalid");
                 }
             }
             if (of.getBegin() != null && of.getEnd() != null && !of.getEnd().isAfter(of.getBegin())) {
-                System.out.println("Data input is  invalid, end must be after begin");
+                System.out.println("Data input is invalid, end must be after begin");
                 of.setBegin(oldBegin);
                 of.setEnd(oldEnd);
             }

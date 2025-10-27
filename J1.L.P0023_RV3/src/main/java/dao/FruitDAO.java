@@ -8,7 +8,6 @@ import java.util.List;
 
 public class FruitDAO {
     
-    // Lấy danh sách tất cả trái cây còn tồn kho
     public List<Fruit> getAllFruitsInStock() {
         List<Fruit> list = new ArrayList<>();
         String sql = "SELECT * FROM Fruit WHERE QuantityInStock > 0";
@@ -32,7 +31,6 @@ public class FruitDAO {
         return list;
     }
 
-    // Kiểm tra FruitId đã tồn tại hay chưa
     public boolean isIdExist(String fruitId) {
         String sql = "SELECT 1 FROM Fruit WHERE FruitId = ?";
         try (Connection con = DBConnect.getConnection();
@@ -44,11 +42,10 @@ public class FruitDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error checking Fruit ID: " + e.getMessage());
-            return true; // Giả định là có lỗi, nên coi như ID đã tồn tại
+            return true;
         }
     }
 
-    // Thêm trái cây mới
     public boolean insertFruit(Fruit f) {
         String sql = "INSERT INTO Fruit (FruitId, FruitName, Price, QuantityInStock, Origin) VALUES (?, ?, ?, ?, ?)";
         try (Connection con = DBConnect.getConnection();
@@ -67,9 +64,7 @@ public class FruitDAO {
         }
     }
 
-    // Cập nhật số lượng tồn kho (sử dụng trong Transaction khi mua hàng)
     public void updateStock(Connection con, String fruitId, int quantityChange) throws SQLException {
-        // quantityChange là số âm khi bán hàng
         String sql = "UPDATE Fruit SET QuantityInStock = QuantityInStock + ? WHERE FruitId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, quantityChange); 

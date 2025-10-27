@@ -4,6 +4,15 @@
     <groupId>main.j1.l.p0023_rv2</groupId>
     <artifactId>J1.L.P0023_RV3</artifactId>
     <version>1.0-SNAPSHOT</version>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>12.6.1.jre11</version> 
+        </dependency>
+    </dependencies>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>

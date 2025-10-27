@@ -8,7 +8,7 @@ public class DBConnect {
 
     static String user = "sa";
     static String pass = "2355";
-    static String url = "jdbc:sqlserver://localhost:1433;databaseName=students;encrypt=true;trustServerCertificate=true";
+    static String url = "jdbc:sqlserver://localhost:1433;databaseName=Lab211_RV3;encrypt=true;trustServerCertificate=true";
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
     public static Connection getConnection() {

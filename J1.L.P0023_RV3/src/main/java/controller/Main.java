@@ -1,12 +1,12 @@
 package controller;
 
-import model.FruitShopManager;
+import service.FruitShopService;
 
 public class Main {
 
     public static void main(String[] args) {
-        FruitShopManager fsm = new FruitShopManager();
-        fsm.run();
-    }
+        FruitShopService fss = new FruitShopService();
 
+        fss.run();
+    }
 }
